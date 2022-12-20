@@ -1,15 +1,25 @@
 .leftbar {
 	flex: 2;
 
+	// top the leftbar to viewvport
+	position: sticky;
+	top: 70px;
+	height: calc(100vh - 70px);
+	overflow: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	// top the leftbar to viewvport
+
 	.container {
 		padding: 20px;
 
-hr {
-	margin: 20px 0;
-	border: none;
-	height: 0.5px;
-	background-color: lightgray;
-}
+		hr {
+			margin: 20px 0;
+			border: none;
+			height: 0.5px;
+			background-color: lightgray;
+		}
 
 		.menu {
 			display: flex;
