@@ -6,6 +6,12 @@
 	height: 50px;
 	border-bottom: 1px solid lightgray;
 
+	// this makes navbar stay viewport
+	position: sticky;
+	top: 0;
+	background-color: white;
+	// this makes navbar stay viewport
+
   .left {
 		display: flex;
 		align-items: center;
