@@ -36,38 +36,7 @@ function App() {
           <LeftBar />
           <div style={{ flex: 6 }}>
             <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
-            <Outlet />
+            
           </div>
           <RightBar />
         </div>
