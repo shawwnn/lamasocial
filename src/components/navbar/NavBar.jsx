@@ -10,9 +10,11 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { DarkModeContext } from '../../context/darkModeContext';
+import { AuthContext } from '../../context/authContext';
 
 const NavBar = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className='navbar'>
@@ -35,8 +37,8 @@ const NavBar = () => {
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
         <div className="user">
-          <img src="https://www.health.qld.gov.au/__data/assets/image/0026/732284/2.-Alana-Social-Smoking.jpg" alt="" />
-          <span>John Doe</span>
+          <img src={currentUser.profilePic} alt="" />
+          <span>{currentUser.name}</span>
         </div>
         
       </div>
