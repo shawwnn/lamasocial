@@ -38,7 +38,7 @@ const Stories = () => {
         <button type="button">+</button>
       </div>
       {stories.map(story => (
-        <div className="story">
+        <div className="story" key={story.id} >
           <img src={story.img} alt="story" />
           <span>{story.name}</span>
         </div>

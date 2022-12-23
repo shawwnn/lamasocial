@@ -17,6 +17,7 @@
 	// this makes navbar stay viewport
 
 	color: themed("textColor");
+	z-index: 999;
 
   .left {
 		display: flex;
