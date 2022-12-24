@@ -1,3 +1,5 @@
+@import "../../style.scss";
+
 .login {
 	height: 100vh;
 	background-color: rgb(193, 219, 230);
@@ -23,6 +25,9 @@
 			gap: 30px;
 			color: white;
 
+			@include mobile {
+				display: none;
+			}
 
 			h1 {
 				font-size: 100px;

@@ -22,6 +22,7 @@
   .left {
 		display: flex;
 		align-items: center;
+		justify-content: space-between;
 		gap: 30px;
 		
 		span {
@@ -40,9 +41,13 @@
 
 			input {
 				border:none;
-				width: 300px;
+				width: 200px;
 				background-color: transparent;
 				color: themed("textColor");
+
+				@include mobile {
+					display: none;
+				}
 			}
 		}
 	}
@@ -52,11 +57,19 @@
 		align-items: center;
 		gap: 20px;
 
+		@include mobile {
+			display: none;
+		}
+
 		.user {
 			display: flex;
 			align-items: center;
 			gap: 10px;
 			font-weight: 600;
+
+			@include tablet {
+				display: none;
+			}
 
 			img {
 				width: 30px;
@@ -65,9 +78,9 @@
 				object-fit: cover;
 			}
 
-			span {
+			// span {
 
-			}
+			// }
 		}
 	}
 }
