@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useEffect } from "react";
 import { useState } from "react";
 
@@ -8,13 +9,12 @@ export const AuthContextProvider = ({ children }) => {
 		JSON.parse(localStorage.getItem("user")) || null
 	);
 
-	const login = () => {
-		// To do
-		setCurrentUser({
-			id: 1, 
-			name: "John Doe", 
-			profilePic: "https://www.health.qld.gov.au/__data/assets/image/0026/732284/2.-Alana-Social-Smoking.jpg"
-		});
+	const login = async (inputs) => {
+		const res = await axios.post("http://localhost:8800/api/auth/login", inputs, {
+			withCredentials: true, // used for cors
+		})
+
+		setCurrentUser(res.data)
 	}
 
 	useEffect(() => {
