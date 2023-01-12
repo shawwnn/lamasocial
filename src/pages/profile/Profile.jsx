@@ -9,7 +9,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from '../../components/posts/Posts';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '../../axios';
 import { useLocation } from 'react-router-dom';
 import { useContext } from 'react';
@@ -26,7 +26,36 @@ const Profile = () => {
     })
   )
 
+  const { isLoading: relIsLoading, data: relationshipData } = useQuery(['relationship'], () => 
+    makeRequest.get("/relationships?followedUserId=" + userId).then((res) => {
+      return res.data;
+    })
+  )
+
   // console.log(typeof userId)
+  // console.log(relationshipData)
+
+  const queryClient = new useQueryClient()
+  // Queries
+  // const query = useQuery({ queryKey: ['todos'], queryFn: getTodos })
+  const toggleFollow = (following) => {
+    if(following) return makeRequest.delete("/relationships?userId="+userId)
+    return makeRequest.post("/relationships", { userId: userId } )
+  }
+
+  // Mutations
+  const mutation = useMutation({
+    mutationFn: toggleFollow,
+    onSuccess: () => {
+      // Invalidate and refetch
+      // queryClient.invalidateQueries({ queryKey: ['todos'] })
+      queryClient.invalidateQueries(["relationship"])
+    },
+  })
+
+  const handleFollow = () => {
+    mutation.mutate(relationshipData.includes(currentUser.id))
+  }
 
   return (
     <div className="profile">
@@ -69,9 +98,13 @@ const Profile = () => {
                 <span>{data.website}</span>
               </div>
             </div>
-            {userId === currentUser.id 
+            {relIsLoading ? "loading" : userId === currentUser.id 
               ? (<button type="button">update</button>) 
-              : (<button>follow</button>)}
+              : (<button onClick={handleFollow}>
+                {relationshipData.includes(currentUser.id) 
+                ? "Following" 
+                : "Follow"}
+              </button>)}
           </div>
           <div className="right">
             <EmailOutlinedIcon />
@@ -79,7 +112,7 @@ const Profile = () => {
           </div>
         </div>
         
-        <Posts />
+        <Posts userId={userId}/>
       </div>
       </>}
     </div>
