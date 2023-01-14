@@ -12,10 +12,13 @@ import Posts from '../../components/posts/Posts';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { makeRequest } from '../../axios';
 import { useLocation } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/authContext';
+import Update from '../../components/update/Update';
 
 const Profile = () => {
+  const [openUpdate, setOpenUpdate] = useState(false)
+
   const { currentUser } = useContext(AuthContext);
 
   const userId = Number(useLocation().pathname.split("/")[2]) // localhost:3000/profile/1
@@ -64,8 +67,8 @@ const Profile = () => {
         <div className="images">
         {/* <img src="https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" className="cover" />
         <img src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="" className="profilePic" /> */}
-        <img src={data.coverPic} alt="" className="cover" />
-        <img src={data.profilePic} alt="" className="profilePic" />
+        <img src={"/upload/"+data.coverPic} alt="" className="cover" />
+        <img src={"/upload/"+data.profilePic} alt="" className="profilePic" />
       </div>
       <div className="profile-container">
         <div className="user-info">
@@ -99,7 +102,7 @@ const Profile = () => {
               </div>
             </div>
             {relIsLoading ? "loading" : userId === currentUser.id 
-              ? (<button type="button">update</button>) 
+              ? (<button type="button" onClick={() => setOpenUpdate(true)}>update</button>) 
               : (<button onClick={handleFollow}>
                 {relationshipData.includes(currentUser.id) 
                 ? "Following" 
@@ -115,6 +118,9 @@ const Profile = () => {
         <Posts userId={userId}/>
       </div>
       </>}
+
+      {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data} />}
+      
     </div>
   )
 }
